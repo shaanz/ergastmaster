@@ -13,9 +13,9 @@ pipeline {
                 sh "initdb/create_mysql.sh"
             }
         }
-        stage('Stage2') {
+        stage('Check importdb log') {
             steps {
-                echo 'Stage2..'
+                sh '/usr/local/bin/kubectl logs importdb'
             }
         }
         stage('Stage3') {
