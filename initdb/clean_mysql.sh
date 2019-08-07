@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ./initdb/
 echo "deleting mysql service on k8s cluster"
 kubectl delete service mysql
 kubectl get svc
