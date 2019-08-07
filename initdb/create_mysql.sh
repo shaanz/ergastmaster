@@ -18,3 +18,8 @@ kubectl get deploy
 echo "create mysql service"
 kubectl create -f mysql-service.yaml
 kubectl get svc
+
+echo "import f1db database"
+kubectl run  importdb --image=biennt/importdb --restart=Never
+kubectl  logs importdb
+kubectl delete pod
