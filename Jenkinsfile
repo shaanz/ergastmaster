@@ -1,9 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Stage1') {
+        stage('Delete existing database deployment') {
             steps {
-                echo 'Stage1..'
+                echo 'Delete existing database deployment'
+                sh "pwd"
+                sh "ls"
             }
         }
         stage('Stage2') {
