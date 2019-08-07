@@ -17,4 +17,4 @@ kubectl get deploy
 
 echo "create mysql service"
 kubectl create -f mysql-service.yaml
-
+kubectl get svc
