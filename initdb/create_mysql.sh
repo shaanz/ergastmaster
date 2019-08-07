@@ -1,4 +1,8 @@
 #!/bin/bash
+cd ./initdb/
+PATH=$PATH:/usr/local/bin
+export PATH
+
 echo "create mysql-pv-volume"
 kubectl create -f mysql-pv.yaml
 kubectl get pv
