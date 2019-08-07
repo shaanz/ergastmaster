@@ -7,6 +7,12 @@ pipeline {
                 sh "initdb/clean_mysql.sh"
             }
         }
+        stage('Create database deployment') {
+            steps {
+                echo 'Delete existing database deployment'
+                sh "initdb/create_mysql.sh"
+            }
+        }
         stage('Stage2') {
             steps {
                 echo 'Stage2..'
