@@ -20,6 +20,7 @@ kubectl create -f mysql-service.yaml
 kubectl get svc
 
 echo "import f1db database"
+kubectl delete pod importdb
 kubectl run  importdb --image=biennt/importdb --restart=Never
 kubectl  logs importdb
-kubectl delete pod
+kubectl delete pod importdb
