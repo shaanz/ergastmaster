@@ -4,8 +4,7 @@ pipeline {
         stage('Delete existing database deployment') {
             steps {
                 echo 'Delete existing database deployment'
-                sh "pwd"
-                sh "ls"
+                sh "initdb/clean_mysql.sh"
             }
         }
         stage('Stage2') {
