@@ -1,5 +1,7 @@
 #!/bin/bash
 cd ./initdb/
+PATH=$PATH:/usr/local/bin
+export PATH
 echo "deleting mysql service on k8s cluster"
 kubectl delete service mysql
 kubectl get svc
