@@ -71,14 +71,21 @@ pipeline {
 ////////////////////////////////////////////////////////        
         stage('TEST') {
             steps {
-                slackSend (color: '#00FF00', message: '--- I am doing some tests')
+                slackSend (color: '#00FF00', message: '#### I am doing some tests')
+
+                slackSend (color: '#00FF00', message: 'Testing if the app can connect to the db')
+                sh './test/testdbconnect.sh'
+                slackSend (color: '#00FF00', message: 'App and DB connection seem to be OK')
+
                 slackSend (color: '#00FF00', message: 'curl -i -s http://ergastapp.bienlab.com/api/f1.json | grep 200')
                 sh './test/testapif1.sh'
-		slackSend (color: '#00FF00', message: '- I got the 200 response, it works')
+		slackSend (color: '#00FF00', message: 'I got the 200 response, it works')
+
                 slackSend (color: '#00FF00', message: 'docker run --name zaptest -t owasp/zap2docker-stable zap-baseline.py -t http://ergastapp.bienlab.com/api/f1')
                 sh './test/zaptest.sh'
-                slackSend (color: '#00FF00', message: '- Basic security tests by OWASP ZAP were done without any fail case')
-                slackSend (color: '#00FF00', message: '--- Done with testing')
+                slackSend (color: '#00FF00', message: 'Basic security tests by OWASP ZAP were done without any fail case')
+
+                slackSend (color: '#00FF00', message: '#### Done with testing')
             }
         }
 ////////////////////////////////////////////////////////
