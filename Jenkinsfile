@@ -15,6 +15,31 @@ pipeline {
             }
         }        
 ////////////////////////////////////////////////////////
+        stage('Deploying the app into the Kubernetes cluster') {
+            steps {
+                slackSend (color: '#00FF00', message: '--- Deploying the app into the Kubernetes cluster')
+                slackSend (color: '#00FF00', message: '- Deleting ergastapp ingress')
+                sh 'cd ergastapp; kubectl delete ingress ergastapp-ingress'
+
+                slackSend (color: '#00FF00', message: '- Deleting ergastapp service')
+                sh 'cd ergastapp; kubectl delete service ergastapp-service'
+
+                slackSend (color: '#00FF00', message: '- Deleting ergast deployment')
+                sh 'cd ergastapp; kubectl delete deployment ergastapp-deployment'
+
+                slackSend (color: '#00FF00', message: '- Creating ergast deployment')
+                sh 'cd ergastapp; kubectl create -f ergastapp-deploy.yaml'
+
+                slackSend (color: '#00FF00', message: '- Creating ergast service')
+                sh 'cd ergastapp; kubectl create -f ergastapp-svc.yaml'
+
+                slackSend (color: '#00FF00', message: '- Creating ergast ingress')
+                sh 'cd ergastapp; kubectl create -f ergastapp-ingress.yaml'
+                slackSend (color: '#00FF00', message: '--- Done')
+		slackSend (color: '#00FF00', message: 'You can test by accessing http://ergastapp.bienlab/com/api/f1')
+            }
+        }
+////////////////////////////////////////////////////////
         stage('Delete existing database deployment') {
             steps {
                 echo 'Delete existing database deployment'
