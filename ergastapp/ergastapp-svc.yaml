@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ergastapp-service
+  namespace: default
+  labels:
+    app: ergastapp
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: ergastapp
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}
+

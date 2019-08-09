@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ergastapp-deployment
+  labels:
+    app: ergastapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ergastapp
+  template:
+    metadata:
+      labels:
+        app: ergastapp
+    spec:
+      containers:
+      - name: ergastapp
+        image: biennt/ergastapp
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+
