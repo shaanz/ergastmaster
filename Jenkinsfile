@@ -11,6 +11,7 @@ pipeline {
         stage('Create database deployment') {
             steps {
                 echo 'Delete existing database deployment'
+                slackSend (color: '#00FF00', message: 'creating the data')
        //         sh "initdb/create_mysql.sh"
             }
         }
