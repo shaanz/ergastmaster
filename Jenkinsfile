@@ -1,6 +1,5 @@
 pipeline {
     agent any
-/////////////////////////////////////////////////////////   
     stages {
 ////////////////////////////////////////////////////////
         stage('Building docker image for the app') {
@@ -10,6 +9,8 @@ pipeline {
                 sh 'cd ergastapp; docker build -t biennt/ergastapp .'
                 slackSend (color: '#00FF00', message: 'Pushing docker image to the registry')
                 sh 'docker push biennt/ergastapp'
+                sh 'docker rmi biennt/biennt/ergastapp'
+                sh 'docker rmi biennt/biennt/ergast-f1-api_01'
               }
             }
         }        
@@ -17,7 +18,6 @@ pipeline {
         stage('Delete existing database deployment') {
             steps {
                 echo 'Delete existing database deployment'
-                input("Sure to delete?")
                 slackSend (color: '#00FF00', message: 'Delete existing database deployment')
               //  sh "initdb/clean_mysql.sh"
             }
@@ -41,9 +41,9 @@ pipeline {
             steps {
                 script {
                     slackSend (color: '#00FF00', message: 'Ready for production in 10 minutes. Please go to Jenkins console to approve or cancel')
-                    timeout(time: 10, unit: 'MINUTES') {
-                        input("Deploy to production?")
-                    }
+               //     timeout(time: 10, unit: 'MINUTES') {
+                //        input("Deploy to production?")
+                 //   }
                 }
             }
         }
