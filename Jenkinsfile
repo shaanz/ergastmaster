@@ -9,8 +9,8 @@ pipeline {
                 sh 'cd ergastapp; docker build -t biennt/ergastapp .'
                 slackSend (color: '#00FF00', message: 'Pushing docker image to the registry')
                 sh 'docker push biennt/ergastapp'
-                sh 'docker rmi biennt/biennt/ergastapp'
-                sh 'docker rmi biennt/biennt/ergast-f1-api_01'
+                sh 'docker rmi biennt/ergastapp'
+                sh 'docker rmi biennt/ergast-f1-api_01'
               }
             }
         }        
