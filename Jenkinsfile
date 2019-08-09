@@ -77,5 +77,12 @@ pipeline {
             }
         }
     }
+/////////////// POST ///////////////
+    post {
+       // triggered when red sign
+       failure {
+           slackSend (color: '#FF9FA1', message: 'The build was FAIL, sir! Go to Jenkins portal to check logs')
+       }
+    }
 }
 
