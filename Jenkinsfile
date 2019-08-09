@@ -19,22 +19,22 @@ pipeline {
             steps {
                 slackSend (color: '#00FF00', message: '--- Deploying the app into the Kubernetes cluster')
                 slackSend (color: '#00FF00', message: '- Deleting ergastapp ingress')
-                sh 'cd ergastapp; kubectl delete ingress ergastapp-ingress'
+                sh 'cd ergastapp; /usr/local/bin/kubectl delete ingress ergastapp-ingress'
 
                 slackSend (color: '#00FF00', message: '- Deleting ergastapp service')
-                sh 'cd ergastapp; kubectl delete service ergastapp-service'
+                sh 'cd ergastapp; /usr/local/bin/kubectl delete service ergastapp-service'
 
                 slackSend (color: '#00FF00', message: '- Deleting ergast deployment')
-                sh 'cd ergastapp; kubectl delete deployment ergastapp-deployment'
+                sh 'cd ergastapp; /usr/local/bin/kubectl delete deployment ergastapp-deployment'
 
                 slackSend (color: '#00FF00', message: '- Creating ergast deployment')
-                sh 'cd ergastapp; kubectl create -f ergastapp-deploy.yaml'
+                sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-deploy.yaml'
 
                 slackSend (color: '#00FF00', message: '- Creating ergast service')
-                sh 'cd ergastapp; kubectl create -f ergastapp-svc.yaml'
+                sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-svc.yaml'
 
                 slackSend (color: '#00FF00', message: '- Creating ergast ingress')
-                sh 'cd ergastapp; kubectl create -f ergastapp-ingress.yaml'
+                sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
                 slackSend (color: '#00FF00', message: '--- Done')
 		slackSend (color: '#00FF00', message: 'You can test by accessing http://ergastapp.bienlab/com/api/f1')
             }
