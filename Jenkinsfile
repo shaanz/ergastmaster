@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
 ////////////////////////////////////////////////////////
-        stage('Building docker image for the app') {
+        stage('BUILD START') {
             steps {
                 slackSend (color: '#00FF00', message: '######### SIR, I AM STARTING TO BUILD EVERYTHING NOW #########')
             }
@@ -42,7 +42,7 @@ pipeline {
                 slackSend (color: '#00FF00', message: '- Creating ergast ingress')
                 sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
                 slackSend (color: '#00FF00', message: '--- Done')
-		slackSend (color: '#00FF00', message: 'You can test by accessing http://ergastapp.bienlab/com/api/f1')
+		slackSend (color: '#00FF00', message: 'You can test by accessing http://ergastapp.bienlab.com/api/f1')
             }
         }
 ////////////////////////////////////////////////////////
