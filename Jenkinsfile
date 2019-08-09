@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        notifyBuild('Starting the build')
+        notifyBuild('STARTED')
         stage('Delete existing database deployment') {
             steps {
                 echo 'Delete existing database deployment'
