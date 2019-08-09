@@ -1,5 +1,17 @@
 pipeline {
     agent any
+/////////////////////////////////////////////////////////
+    stages {
+        timeout(time: 60, unit: 'SECONDS') {
+          script {
+            def INPUT_PARAMS = input message: 'Do you want to delete the existing database', ok: 'Next',
+              parameters: [
+               choice(name: 'DBDELETE', choices: ['yes','no'].join('\n'), description: 'Please select the Environment')]
+             env.DBDELETE = INPUT_PARAMS.DBDELETE
+          }
+        }
+    }
+/////////////////////////////////////////////////////////   
     stages {
 ////////////////////////////////////////////////////////
         stage('Delete existing database deployment') {
