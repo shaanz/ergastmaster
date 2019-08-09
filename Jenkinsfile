@@ -64,8 +64,7 @@ pipeline {
         stage('TEST') {
             steps {
                 slackSend (color: '#00FF00', message: '--- I am doing some tests')
-                TEST1 = sh (script: 'curl -i -s http://ergastapp.bienlab.com/api/f1.json | grep 200', returnStatus: true ) == 0
-                slackSend (color: '#00FF00', message: '- Test command "curl -i -s http://ergastapp.bienlab.com/api/f1.json | grep 200", result = ${TEST1}')
+                sh './test/testapif1.sh'
                 slackSend (color: '#00FF00', message: '--- Done with the database deployment')
             }
         }
