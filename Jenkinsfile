@@ -22,7 +22,12 @@ pipeline {
         //}
         stage('Stage3') {
             steps {
-                echo 'Stage3....ok?'
+                script {
+                    slackSend (color: '#00FF00', message: 'Ready for production in 10 minutes. Please go to Jenkins console to approve or cancel')
+                    timeout(time: 10, unit: 'MINUTES') {
+                        input("Deploy to production?")
+                    }
+                }
             }
         }
     }
