@@ -41,23 +41,23 @@ pipeline {
 
                 slackSend (color: '#00FF00', message: '- Creating ergast ingress')
                 sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
-                slackSend (color: '#00FF00', message: '--- Done')
+                slackSend (color: '#00FF00', message: '--- Done with the app deployment)
             }
         }
 ////////////////////////////////////////////////////////
         stage('Delete existing database deployment') {
             steps {
-                echo 'Delete existing database deployment'
-                slackSend (color: '#00FF00', message: 'Delete existing database deployment')
+                slackSend (color: '#00FF00', message: '--- Setting up the database')
+                slackSend (color: '#00FF00', message: '- Delete existing database deployment')
                 sh "initdb/clean_mysql.sh"
             }
         }
 ////////////////////////////////////////////////////////
         stage('Create database deployment') {
             steps {
-                echo 'Create database deployment'
-                slackSend (color: '#00FF00', message: 'Create database deployment')
+                slackSend (color: '#00FF00', message: '- Create database deployment')
                 sh "initdb/create_mysql.sh"
+                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
             }
         }
 ////////////////////////////////////////////////////////        
