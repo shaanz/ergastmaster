@@ -3,6 +3,17 @@ pipeline {
 /////////////////////////////////////////////////////////   
     stages {
 ////////////////////////////////////////////////////////
+        stage('Building docker image for the app') {
+            steps {
+              withDockerRegistry([ credentialsId: "biennt_at_dockerhub", url: "" ]) {
+                slackSend (color: '#00FF00', message: 'Building docker image for the ergast app')
+                sh 'cd ergastapp; docker build -t biennt/ergastapp .'
+                slackSend (color: '#00FF00', message: 'Pushing docker image to the registry')
+                sh 'docker push biennt/ergastapp'
+              }
+            }
+        }        
+////////////////////////////////////////////////////////
         stage('Delete existing database deployment') {
             steps {
                 echo 'Delete existing database deployment'
