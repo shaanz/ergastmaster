@@ -60,6 +60,14 @@ pipeline {
                 slackSend (color: '#00FF00', message: '--- Done with the database deployment')
             }
         }
+////////////////////////////////////////////////////////
+        stage('Import data into the new database') {
+            steps {
+                slackSend (color: '#00FF00', message: '--- Import data into the new database')
+                sh "initdb/importdb.sh"
+                slackSend (color: '#00FF00', message: '--- Import finished ')
+            }
+        }
 ////////////////////////////////////////////////////////        
         stage('TEST') {
             steps {
