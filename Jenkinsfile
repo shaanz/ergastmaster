@@ -66,7 +66,7 @@ pipeline {
                 slackSend (color: '#00FF00', message: '--- I am doing some tests')
                 slackSend (color: '#00FF00', message: 'curl -i -s http://ergastapp.bienlab.com/api/f1.json | grep 200')
                 sh './test/testapif1.sh'
-                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
+                slackSend (color: '#00FF00', message: '--- Done with testing')
             }
         }
 ////////////////////////////////////////////////////////
