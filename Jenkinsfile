@@ -4,6 +4,12 @@ pipeline {
 ////////////////////////////////////////////////////////
         stage('Building docker image for the app') {
             steps {
+                slackSend (color: '#00FF00', message: '######### SIR, I AM STARTING TO BUILD EVERYTHING NOW #########')
+            }
+        }
+////////////////////////////////////////////////////////
+        stage('Building docker image for the app') {
+            steps {
               withDockerRegistry([ credentialsId: "biennt_at_dockerhub", url: "" ]) {
                 slackSend (color: '#00FF00', message: 'Building docker image for the ergast app')
                 sh 'cd ergastapp; docker build -t biennt/ergastapp .'
