@@ -12,8 +12,7 @@ do
  if [ $result -eq 1 ]
 then
  fn=1
-else
- kubectl logs importdb 
 fi
 done
+kubectl logs importdb 
 
