@@ -41,7 +41,7 @@ pipeline {
 
                 slackSend (color: '#00FF00', message: '- Creating ergast ingress')
                 sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
-                slackSend (color: '#00FF00', message: '--- Done with the app deployment)
+                slackSend (color: '#00FF00', message: '--- Done with the app deployment')
             }
         }
 ////////////////////////////////////////////////////////
