@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
         stage('BUILD START') {
             steps {
                 slackSend (color: '#00FF00', message: '######### SIR, I AM STARTING TO BUILD EVERYTHING NOW #########')
