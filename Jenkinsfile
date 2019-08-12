@@ -24,11 +24,11 @@ pipeline {
         stage('Deploying the app into the Kubernetes cluster') {
             steps {
                 slackSend (color: '#00FF00', message: '--- Deploying the app into the Kubernetes cluster')
-                slackSend (color: '#00FF00', message: '- Deleting ergastapp ingress')
-                sh 'cd ergastapp; /usr/local/bin/kubectl delete ingress ergastapp-ingress'
+                //slackSend (color: '#00FF00', message: '- Deleting ergastapp ingress')
+                //sh 'cd ergastapp; /usr/local/bin/kubectl delete ingress ergastapp-ingress'
 
-                slackSend (color: '#00FF00', message: '- Deleting ergastapp service')
-                sh 'cd ergastapp; /usr/local/bin/kubectl delete service ergastapp-service'
+                //slackSend (color: '#00FF00', message: '- Deleting ergastapp service')
+                //sh 'cd ergastapp; /usr/local/bin/kubectl delete service ergastapp-service'
 
                 slackSend (color: '#00FF00', message: '- Deleting ergast deployment')
                 sh 'cd ergastapp; /usr/local/bin/kubectl delete deployment ergastapp-deployment'
@@ -36,38 +36,38 @@ pipeline {
                 slackSend (color: '#00FF00', message: '- Creating ergast deployment')
                 sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-deploy.yaml'
 
-                slackSend (color: '#00FF00', message: '- Creating ergast service')
-                sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-svc.yaml'
+                //slackSend (color: '#00FF00', message: '- Creating ergast service')
+                //sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-svc.yaml'
 
-                slackSend (color: '#00FF00', message: '- Creating ergast ingress')
-                sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
+                //slackSend (color: '#00FF00', message: '- Creating ergast ingress')
+                //sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-ingress.yaml'
                 slackSend (color: '#00FF00', message: '--- Done with the app deployment')
             }
         }
 ////////////////////////////////////////////////////////
-        stage('Delete existing database deployment') {
-            steps {
-                slackSend (color: '#00FF00', message: '--- Setting up the database')
-                slackSend (color: '#00FF00', message: '- Delete existing database deployment')
-                sh "initdb/clean_mysql.sh"
-            }
-        }
+//        stage('Delete existing database deployment') {
+//            steps {
+//                slackSend (color: '#00FF00', message: '--- Setting up the database')
+//                slackSend (color: '#00FF00', message: '- Delete existing database deployment')
+//                sh "initdb/clean_mysql.sh"
+//            }
+//        }
 ////////////////////////////////////////////////////////
-        stage('Create database deployment') {
-            steps {
-                slackSend (color: '#00FF00', message: '- Create database deployment')
-                sh "initdb/create_mysql.sh"
-                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
-            }
-        }
+//        stage('Create database deployment') {
+//            steps {
+//                slackSend (color: '#00FF00', message: '- Create database deployment')
+//                sh "initdb/create_mysql.sh"
+//                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
+//           }
+//        }
 ////////////////////////////////////////////////////////
-        stage('Import data into the new database') {
-            steps {
-                slackSend (color: '#00FF00', message: '--- Import data into the new database')
-                sh "initdb/importdb.sh"
-                slackSend (color: '#00FF00', message: '--- Import finished ')
-            }
-        }
+//        stage('Import data into the new database') {
+//            steps {
+//                slackSend (color: '#00FF00', message: '--- Import data into the new database')
+//                sh "initdb/importdb.sh"
+//                slackSend (color: '#00FF00', message: '--- Import finished ')
+//            }
+//        }
 ////////////////////////////////////////////////////////        
         stage('TEST') {
             steps {
@@ -91,7 +91,7 @@ pipeline {
 ///////////////////////////////////////////////////////
         stage('BUILD END') {
             steps {
-		slackSend (color: '#00FF00', message: 'You can test by "curl http://ergastapp.bienlab.com/api/f1"')
+		slackSend (color: '#00FF00', message: 'You can test by "curl http://ergastapi.bienlab.com/api/f1/drivers/alonso"')
                 slackSend (color: '#00FF00', message: '######### SIR, I AM DONE #########')
             }
         }
