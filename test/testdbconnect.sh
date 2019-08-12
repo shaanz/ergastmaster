@@ -3,7 +3,7 @@
 fn=0
 while [ $fn -ne 1 ]
 do
-result=`kubectl get pod | grep ergastapp | grep Running | wc -l`
+result=`/usr/local/bin/kubectl get pod | grep ergastapp | grep Running | wc -l`
   if [ $result -gt 1 ]
   then
    fn=1
