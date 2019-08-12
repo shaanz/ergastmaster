@@ -45,29 +45,29 @@ pipeline {
             }
         }
 ////////////////////////////////////////////////////////
-//        stage('Delete existing database deployment') {
-//            steps {
-//                slackSend (color: '#00FF00', message: '--- Setting up the database')
-//                slackSend (color: '#00FF00', message: '- Delete existing database deployment')
-//                sh "initdb/clean_mysql.sh"
-//            }
-//        }
+        stage('Delete existing database deployment') {
+            steps {
+                slackSend (color: '#00FF00', message: '--- Setting up the database')
+                slackSend (color: '#00FF00', message: '- Delete existing database deployment')
+                sh "initdb/clean_mysql.sh"
+            }
+        }
 ////////////////////////////////////////////////////////
-//        stage('Create database deployment') {
-//            steps {
-//                slackSend (color: '#00FF00', message: '- Create database deployment')
-//                sh "initdb/create_mysql.sh"
-//                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
-//           }
-//        }
+        stage('Create database deployment') {
+            steps {
+                slackSend (color: '#00FF00', message: '- Create database deployment')
+                sh "initdb/create_mysql.sh"
+                slackSend (color: '#00FF00', message: '--- Done with the database deployment')
+           }
+        }
 ////////////////////////////////////////////////////////
-//        stage('Import data into the new database') {
-//            steps {
-//                slackSend (color: '#00FF00', message: '--- Import data into the new database')
-//                sh "initdb/importdb.sh"
-//                slackSend (color: '#00FF00', message: '--- Import finished ')
-//            }
-//        }
+        stage('Import data into the new database') {
+            steps {
+                slackSend (color: '#00FF00', message: '--- Import data into the new database')
+                sh "initdb/importdb.sh"
+                slackSend (color: '#00FF00', message: '--- Import finished ')
+            }
+        }
 ////////////////////////////////////////////////////////        
         stage('TEST') {
             steps {
