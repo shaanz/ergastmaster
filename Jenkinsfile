@@ -88,7 +88,7 @@ pipeline {
                 slackSend (color: '#00FF00', message: '#### Done with testing')
             }
         }
-////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
         stage('BUILD END') {
             steps {
 		slackSend (color: '#00FF00', message: 'You can test by "curl http://ergastapp.bienlab.com/api/f1"')
