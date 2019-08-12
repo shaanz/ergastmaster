@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigw
+  labels:
+    app: apigw
+spec:
+  ports:
+  - port: 80
+    name: apigw
+  clusterIP: None
+  selector:
+    app: apigw
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: apigw
+spec:
+  selector:
+    matchLabels:
+      app: apigw # has to match .spec.template.metadata.labels
+  serviceName: "apigw"
+  replicas: 3 # Bien: i hope that 1 instance will be deployed into each worker node ;-)
+  template:
+    metadata:
+      labels:
+        app: apigw # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: apigw
+        image: biennt/nginxpluswithagent:latest
+        ports:
+        - containerPort: 80
+          name: apigw
+
