@@ -1,13 +1,13 @@
 pipeline {
     agent any
     stages {
-//////////////////////////////////////////////////////
-        stage('BUILD START') {
+
+        stage('START') {
             steps {
                 slackSend (color: '#00FF00', message: '######### SIR, I AM STARTING TO BUILD EVERYTHING NOW #########')
             }
         }
-////////////////////////////////////////////////////////
+	    
         stage('Building docker image for the app') {
             steps {
               withDockerRegistry([ credentialsId: "biennt_at_dockerhub", url: "" ]) {
@@ -20,7 +20,7 @@ pipeline {
               }
             }
         }        
-////////////////////////////////////////////////////////
+
         stage('Deploying the app into the Kubernetes cluster') {
             steps {
                 slackSend (color: '#00FF00', message: '--- Deploying the app into the Kubernetes cluster')
@@ -30,10 +30,10 @@ pipeline {
                 //slackSend (color: '#00FF00', message: '- Deleting ergastapp service')
                 //sh 'cd ergastapp; /usr/local/bin/kubectl delete service ergastapp-service'
 
-                slackSend (color: '#00FF00', message: '- Deleting ergast deployment')
+                slackSend (color: '#00FF00', message: '- Deleting existing ergast deployment')
                 sh 'cd ergastapp; /usr/local/bin/kubectl delete deployment ergastapp-deployment'
 
-                slackSend (color: '#00FF00', message: '- Creating ergast deployment')
+                slackSend (color: '#00FF00', message: '- Creating new ergast deployment')
                 sh 'cd ergastapp; /usr/local/bin/kubectl create -f ergastapp-deploy.yaml'
 
                 //slackSend (color: '#00FF00', message: '- Creating ergast service')
@@ -44,34 +44,34 @@ pipeline {
                 slackSend (color: '#00FF00', message: '--- Done with the app deployment')
             }
         }
-////////////////////////////////////////////////////////
-        stage('Delete existing database deployment') {
+
+        stage('Delete existing database') {
             steps {
                 slackSend (color: '#00FF00', message: '--- Setting up the database')
                 slackSend (color: '#00FF00', message: '- Delete existing database deployment')
                 sh "initdb/clean_mysql.sh"
             }
         }
-////////////////////////////////////////////////////////
-        stage('Create database deployment') {
+
+        stage('Create new database') {
             steps {
                 slackSend (color: '#00FF00', message: '- Create database deployment')
                 sh "initdb/create_mysql.sh"
                 slackSend (color: '#00FF00', message: '--- Done with the database deployment')
            }
         }
-////////////////////////////////////////////////////////
-        stage('Import data into the new database') {
+
+        stage('Import data') {
             steps {
                 slackSend (color: '#00FF00', message: '--- Import data into the new database')
                 sh "initdb/importdb.sh"
                 slackSend (color: '#00FF00', message: '--- Import finished ')
             }
         }
-////////////////////////////////////////////////////////        
-        stage('TEST') {
+      
+        stage('Test') {
             steps {
-                slackSend (color: '#00FF00', message: '#### I am doing some tests')
+                slackSend (color: '#00FF00', message: '########  I am doing some tests ########')
 
                 slackSend (color: '#00FF00', message: 'Testing if the app can connect to the db')
                 sh './test/testdbconnect.sh'
@@ -85,22 +85,21 @@ pipeline {
                 sh './test/zaptest.sh'
                 slackSend (color: '#00FF00', message: 'Basic security tests by OWASP ZAP were done without any fail case')
 
-                slackSend (color: '#00FF00', message: '#### Done with testing')
+                slackSend (color: '#00FF00', message: '######## Done with testing ########')
             }
         }
-///////////////////////////////////////////////////////
-        stage('BUILD END') {
-            steps {
-		slackSend (color: '#00FF00', message: 'You can test by "curl http://ergastapi.bienlab.com/api/f1/drivers/alonso"')
-                slackSend (color: '#00FF00', message: '######### SIR, I AM DONE #########')
-            }
-        }
+
     }
-/////////////// POST ///////////////
+
+	
     post {
+       success {
+	   slackSend (color: '#00FF00', message: 'You can test by "curl http://ergastapi.bienlab.com/api/f1/drivers/alonso"')
+	   slackSend (color: '#00FF00', message: '######### SIR, I AM DONE #########') 
+       }
        // triggered when red sign
        failure {
-           slackSend (color: '#FF9FA1', message: 'The build was FAIL, sir! Go to Jenkins portal to check logs')
+           slackSend (color: '#FF9FA1', message: 'The build was FAILED, sir! Go to Jenkins portal to check logs')
        }
     }
 }
