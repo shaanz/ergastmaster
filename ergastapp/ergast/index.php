@@ -3,7 +3,7 @@ include("functions.inc");
 
 $urlComponents = parse_url($_SERVER['REQUEST_URI']);
 $path = strtolower(urldecode($urlComponents['path']));
-$url = "http://ergast.com" . $path;
+$url = "http://ergastapi.bienlab.com" . $path;
 $period = strrpos($path, ".");
 if($period !== FALSE) {
   $format = substr($path, $period + 1);
