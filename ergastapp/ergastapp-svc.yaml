@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ergastapp
 spec:
-  ClusterIP: None
+  clusterIP: None
   ports:
     - protocol: TCP
       port: 80
