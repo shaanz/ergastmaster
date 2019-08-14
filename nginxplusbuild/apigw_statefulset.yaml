@@ -21,7 +21,7 @@ spec:
     matchLabels:
       app: apigw # has to match .spec.template.metadata.labels
   serviceName: "apigw"
-  replicas: 3 # Bien: i hope that 1 instance will be deployed into each worker node ;-)
+  replicas: 1 # for demo, i use one only
   template:
     metadata:
       labels:
