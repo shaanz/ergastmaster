@@ -6,14 +6,10 @@ metadata:
   labels:
     app: ergastapp
 spec:
+  ClusterIP: None
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
   selector:
     app: ergastapp
-  type: ClusterIP
-  sessionAffinity: None
-status:
-  loadBalancer: {}
-
